@@ -1,7 +1,6 @@
 package org.effrafax.research.query.service;
 
-import org.effrafax.research.infrastructure.event.Event;
-import org.effrafax.research.infrastructure.test.TestEventBus;
+import org.effrafax.research.infrastructure.event.impl.NullEvent;
 import org.effrafax.research.query.service.impl.StandardEventCountService;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,15 +23,8 @@ public class EventCountServiceTest {
 
 	@Test
 	public void whenEventIsFiredEventCountIsZero() {
-		TestEventBus bus = new TestEventBus();
-		bus.add(service);
-
-		bus.fire(new NullEvent());
+		service.handle(new NullEvent());
 
 		assertEquals(Integer.valueOf(1), service.getEventCount());
 	}
-}
-
-class NullEvent implements Event {
-
 }
